@@ -1,2 +1,2 @@
-# Intro to Python
-This repository is to store code for my Yale-NUS course Intro to Python
+# Yale-NUS
+This repository is to store code for my Yale-NUS Computer Science courses
