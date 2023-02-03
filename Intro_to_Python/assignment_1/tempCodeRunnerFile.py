@@ -1,0 +1,3 @@
+print(check_if_rows_add_to_15(test_matrix_true))
+print(check_if_rows_add_to_15(test_matrix_false))
+check_if_T(test_matrix_false)
