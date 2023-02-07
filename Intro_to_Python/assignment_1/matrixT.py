@@ -30,24 +30,24 @@ def ask_to_enter_matrices(ask_standard):
             add_another = False
     return matrices
 
-def check_if_rows_add_to_15(matrix):
+def check_if_rows_add_to_n(matrix,n):
     for row in matrix:
-        if sum(row) != 15:
+        if sum(row) != n:
             return False
     return True
 
 
-def check_if_columns_add_to_15(matrix):
+def check_if_columns_add_to_n(matrix,n):
     for i in range(len(matrix)):
         column_sum = 0
         for row in matrix:
             column_sum += row[i]
-        if column_sum != 15:
+        if column_sum != n:
             return False
     return True
 
-def check_if_T(matrix):
-    return check_if_rows_add_to_15(matrix) and check_if_columns_add_to_15(matrix)
+def check_if_T(matrix,n):
+    return check_if_rows_add_to_n(matrix,n) and check_if_columns_add_to_n(matrix,n)
 
 def stringify(matrix):
     string = ""
@@ -56,11 +56,12 @@ def stringify(matrix):
     return string
 
 def app():
-    ask_standard = input("Do you want to use the standard matrix 3x3? (y/n) ")
+    ask_standard = input("Do you want to use the standard matrices 3x3? (y/n) ")
     matrices = ask_to_enter_matrices(ask_standard)
     for i in range(len(matrices)):
         name = "Matrix " + str(i+1) + "\n"
-        if check_if_T(matrices[i]):
+        n = sum(matrices[i][0])
+        if check_if_T(matrices[i],n):
             print(name + stringify(matrices[i]), "is a T matrix\n")
         else:
             print(name + stringify(matrices[i]), "is NOT a T matrix\n")
