@@ -46,8 +46,16 @@ def check_if_columns_add_to_n(matrix,n):
             return False
     return True
 
+def check_if_diagonals_add_to_n(matrix,n):
+    diagonal_sum = 0
+    for i in range(len(matrix)):
+        diagonal_sum += matrix[i][i]
+    if diagonal_sum != n:
+        return False
+    return True
+
 def check_if_T(matrix,n):
-    return check_if_rows_add_to_n(matrix,n) and check_if_columns_add_to_n(matrix,n)
+    return check_if_rows_add_to_n(matrix,n) and check_if_columns_add_to_n(matrix,n) and check_if_diagonals_add_to_n(matrix,n)
 
 def stringify(matrix):
     string = ""
@@ -62,9 +70,9 @@ def app():
         name = "Matrix " + str(i+1) + "\n"
         n = sum(matrices[i][0])
         if check_if_T(matrices[i],n):
-            print(name + stringify(matrices[i]), "is a T matrix\n")
+            print(name + stringify(matrices[i]), "is a MatrixT\n")
         else:
-            print(name + stringify(matrices[i]), "is NOT a T matrix\n")
+            print(name + stringify(matrices[i]), "is NOT a MatrixT\n")
 
 
 app()

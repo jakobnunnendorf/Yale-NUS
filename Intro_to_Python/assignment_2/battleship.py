@@ -9,6 +9,7 @@
 # if the ship is destroyed, the player wins.
 
 import random  # import the random module 
+import os  # import the os module
 
 ship_size = 7  # constant variable for the size of the ship 
 dimension = 10  # constant variable for the size of the board (square) 
