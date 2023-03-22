@@ -90,11 +90,11 @@ def get_all_values(reaction):
 
     print("\n" + reaction + "\nStandard Thermodynamic Properties")
     print(f"Δ𝐻∘f(kJ mol^–1) = ({components_str(products, 'dH')} - {components_str(reactants, 'dH')})")
-    print(f"Δ𝐻∘): {dH}"  + "\n")
+    print(f"Δ𝐻∘): {dH} kJ/mol"  + "\n")
     print(f"Δ𝐺∘f(kJ mol^–1) = ({components_str(products, 'dG')} - {components_str(reactants, 'dG')})")
-    print(f"Δ𝐺∘): {dG}"  + "\n")
+    print(f"Δ𝐺∘): {dG} kJ/mol"  + "\n")
     print(f"𝑆°(J K^–1 mol^–1) = ({components_str(products, 'dS')} - {components_str(reactants, 'dS')})")
-    print(f"𝑆°: {dS}" + "\n")
+    print(f"𝑆°: {dS} J/(mol*K)" + "\n")
     print()
     return dH, dG, dS
 
@@ -102,7 +102,42 @@ def user_input_values():
     user_reaction = input("Please enter a reaction (e.g., I2(s) + Br2(l) -> 2IBr(g)): ")
     get_all_values(user_reaction)
 
-user_input_values()
+def calculate_dG_with_temperature():
+    user_reaction = input("Please enter a reaction (e.g., I2(s) + Br2(l) -> 2IBr(g)): ")
+    temperature_C = float(input("Please enter the temperature in Celsius: "))
+    temperature_K = temperature_C + 273.15
+    
+    dH, dG, dS = get_all_values(user_reaction)
+
+    dG_temperature = dH - temperature_K * dS / 1000
+    print(f"ΔG = ΔH° − TΔS°")
+    print(f"ΔG = {dH} kJ/mol - ({temperature_K} K) * ({dS} J/(mol*K)) / 1000")
+    print(f"ΔG: {dG_temperature} kJ/mol")
+
+import math
+
+def calculate_keq():
+    user_reaction = input("Please enter a reaction (e.g., I2(s) + Br2(l) -> 2IBr(g)): ")
+    temperature_C = float(input("Please enter the temperature in Celsius: "))
+    temperature_K = temperature_C + 273.15
+
+    dH, dG, dS = get_all_values(user_reaction)
+    
+    dG_temperature = dH - temperature_K * dS / 1000
+
+    print(f"ΔG at {temperature_C}°C = ΔH° − TΔS°")
+    print(f"ΔG = {dH} kJ/mol - ({temperature_K} K * {dS / 1000} kJ/(mol*K))")
+    print(f"ΔG: {dG_temperature} kJ/mol\n")
+    
+    R = 8.31446261815324 # J/(mol*K)
+    keq = math.exp(-dG_temperature * 1000 / (R * temperature_K))
+
+    print(f"Keq = e^(-ΔG/RT)")
+    print(f"Keq = e^(-({dG_temperature} kJ/mol * 1000) / ({R} J/(mol*K) * {temperature_K} K))")
+    print(f"Keq: {keq}")
+
+calculate_keq()
+
 
 
 
