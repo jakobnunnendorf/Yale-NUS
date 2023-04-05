@@ -1,0 +1,40 @@
+## Question 3
+
+In the previous questions, we looked at clustering on two dimensional datasets. However, we can easily use clustering on data which have more than two dimensions. For this, let us turn to a World Bank dataset, containing various features for the world's countries.
+
+This data comes from https://databank.worldbank.org/source/world-development-indicators#.
+
+world_bank_data = pd.read_csv("world_bank_data.csv", index_col = 'country')
+world_bank_data.head(5)
+There are some missing values. For the sake of convenience and of keeping the lab short, we will fill them all with zeros. 
+world_bank_data = world_bank_data.fillna(0)
+
+
+Below, fit a `cluster.KMeans` object called `kmeans_q3` with four clusters and a `random_state` parameter of 42.
+
+Make sure you should use a centered and scaled version of the world bank data. By centered and scaled we mean that the mean in each column should be zero and the variance should be 1.
+
+<!--
+BEGIN QUESTION
+name: q4
+-->
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+
+scaler.fit(world_bank_data)
+kmeans_q3 = cluster.KMeans(...).fit(scaler.transform(world_bank_data))
+Looking at these new clusters, we see that they seem to correspond to:
+
+0: Very small countries.
+
+1: Developed countries.
+
+2: Less developed countries.
+
+3: Huge countries.
+labeled_world_bank_data_q3 = pd.Series(kmeans_q3.labels_, name = "cluster", index  = world_bank_data.index).to_frame()
+list(labeled_world_bank_data_q3.query('cluster == 0').index)
+list(labeled_world_bank_data_q3.query('cluster == 1').index)
+list(labeled_world_bank_data_q4.query('cluster == 2').index)
+list(labeled_world_bank_data_q3.query('cluster == 3').index)
